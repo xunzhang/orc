@@ -46,8 +46,12 @@ namespace orc {
         throw ParseError("Can't open hdfs file " + filename);
       }
       // TODO: set totalLength
-      //totalLength = 5147970;
-      totalLength = 16337;
+      auto fileInfo = hdfsGetPathInfo(fs, filename.c_str());
+      if (fileInfo == NULL) {
+        throw ParseError("Can't get info of file " + filename);
+      }
+      totalLength = static_cast<uint64_t>(fileInfo->mSize);
+      hdfsFreeFileInfo(fileInfo, 1);
     }
 
   public:
