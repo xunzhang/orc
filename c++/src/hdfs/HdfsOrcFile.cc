@@ -19,18 +19,15 @@
 #include <string>
 #include <memory>
 
-#include "hdfs/hdfs.h"
-
-#include "orc/OrcFile.hh"
-
-#include "Adaptor.hh"
 #include "Exceptions.hh"
+#include "orc/OrcFile.hh"
+#include "wrap/libhdfs3-wrapper.h"
 
 namespace orc {
 
   class HdfsFileInputStream : public InputStream {
   private:
-    std::string filename ;
+    std::string filename;
     hdfsFS fs;
     hdfsFile file;
     int bufferSize;
@@ -48,6 +45,7 @@ namespace orc {
         throw ParseError("Can't open hdfs file " + filename);
       }
       // TODO: set totalLength
+      totalLength = 5147970;
     }
 
   public:
@@ -70,10 +68,8 @@ namespace orc {
         blockSize(_blockSize) {
       init(_fs, std::string(_filename));
     }
-
-    ~FileInputStream() {
-      hdfsCloseFile(fs, file);
-    }
+ 
+    ~HdfsFileInputStream();
 
     uint64_t getLength() const override {
       return totalLength;
@@ -89,16 +85,30 @@ namespace orc {
       if (!buf) {
         throw ParseError("Buffer is null");
       }
+      if (hdfsSeek(fs, file, static_cast<tOffset>(offset))) {
+        throw ParseError("Fail to seek " + std::to_string(offset) + " for reading");
+      }
+      tSize byteRead = hdfsRead(fs, file, buf, length);
+      if (byteRead == -1) {
+        throw ParseError("Bad read of " + filename);
+      }
+      if (static_cast<uint64_t>(byteRead) != length) {
+        throw ParseError("Short read of " + filename);
+      }
     }
 
     const std::string& getName() const override {
       return filename;
     }
   }; // class HdfsFileInputStream
-
-  std::unique_ptr<InputStream> readHdfsFile(const std::string& path) {
-    return std::unique_ptr<InputStream>(new HdfsFileInputStream(path));
+    
+  HdfsFileInputStream::~HdfsFileInputStream() {
+      hdfsCloseFile(fs, file);
   }
+
+  //std::unique_ptr<InputStream> readHdfsFile(const std::string& path) {
+  //  return std::unique_ptr<InputStream>(new HdfsFileInputStream(path));
+  //}
 } // namespace orc
 
 #ifndef HAS_STOLL
