@@ -38,8 +38,27 @@ target_link_libraries (orc-scan
   ${PROTOBUF_LIBRARIES}
   )
 
+link_libraries("/Users/wuhong/Desktop/local/lib")
+add_executable (hdfs-orc-scan
+  HdfsFileScan.cc
+  )
+
+target_link_libraries (hdfs-orc-scan
+  orc
+  ${PROTOBUF_LIBRARIES}
+  )
+
 add_executable (orc-metadata
   FileMetadata.cc
+  )
+
+add_executable (hdfs-orc-contents
+  HdfsFileContents.cc
+  )
+
+target_link_libraries (hdfs-orc-contents
+  orc
+  ${PROTOBUF_LIBRARIES}
   )
 
 target_link_libraries (orc-metadata

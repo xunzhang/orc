@@ -15,6 +15,9 @@ include_directories (
   "include"
   )
 
+include_directories("/Users/wuhong/Desktop/local/include")
+#link_libraries("/Users/wuhong/Desktop/local/lib")
+
 add_subdirectory(include)
 add_subdirectory(libs)
 add_subdirectory(src)

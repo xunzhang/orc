@@ -21,6 +21,7 @@
 
 #include "Exceptions.hh"
 #include "orc/OrcFile.hh"
+
 #include "wrap/libhdfs3-wrapper.h"
 
 namespace orc {
@@ -45,7 +46,8 @@ namespace orc {
         throw ParseError("Can't open hdfs file " + filename);
       }
       // TODO: set totalLength
-      totalLength = 5147970;
+      //totalLength = 5147970;
+      totalLength = 16337;
     }
 
   public:
@@ -103,12 +105,19 @@ namespace orc {
   }; // class HdfsFileInputStream
     
   HdfsFileInputStream::~HdfsFileInputStream() {
-      hdfsCloseFile(fs, file);
+    hdfsCloseFile(fs, file);
   }
 
-  //std::unique_ptr<InputStream> readHdfsFile(const std::string& path) {
-  //  return std::unique_ptr<InputStream>(new HdfsFileInputStream(path));
-  //}
+  std::unique_ptr<InputStream> readHdfsFile(hdfsFS fs,
+                                            const std::string& path,
+                                            int bufferSize,
+                                            int replication,
+                                            tOffset blockSize) {
+    return std::unique_ptr<InputStream>(new HdfsFileInputStream(fs, path,
+                                                                bufferSize,
+                                                                replication,
+                                                                blockSize));
+  }
 } // namespace orc
 
 #ifndef HAS_STOLL

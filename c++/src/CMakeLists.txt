@@ -122,9 +122,6 @@ add_custom_command(OUTPUT orc_proto.pb.h orc_proto.pb.cc
         "${CMAKE_SOURCE_DIR}/proto/orc_proto.proto"
 )
 
-include_directories("/Users/wuhong/local/include")
-link_libraries("/Users/wuhong/local/lib")
-
 add_library (orc STATIC
   "${CMAKE_CURRENT_BINARY_DIR}/Adaptor.hh"
   orc_proto.pb.h
