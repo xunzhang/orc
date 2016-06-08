@@ -38,25 +38,6 @@ target_link_libraries (orc-scan
   ${PROTOBUF_LIBRARIES}
   )
 
-link_libraries("/Users/wuhong/Desktop/local/lib")
-#add_executable (hdfs-orc-scan
-#  HdfsFileScan.cc
-#  )
-
-#target_link_libraries (hdfs-orc-scan
-#  orc
-#  ${PROTOBUF_LIBRARIES}
-#  )
-
-add_executable (hdfs-orc-contents
-  HdfsFileContents.cc
-  )
-
-target_link_libraries (hdfs-orc-contents
-  orc
-  ${PROTOBUF_LIBRARIES}
-  )
-
 add_executable (orc-metadata
   FileMetadata.cc
   )
@@ -84,8 +65,36 @@ target_link_libraries (orc-memory
   ${PROTOBUF_LIBRARIES}
   )   
 
+find_library(Libhdfs3_LIBRARY
+             NAMES hdfs3
+             HINTS
+             "/Users/wuhong/Desktop/local/lib")
+set(Libhdfs3_LIBRARIES ${Libhdfs3_LIBRARY})
+link_libraries(${Libhdfs3_LIBRARY})
+
+add_executable (hdfs-orc-contents
+  HdfsFileContents.cc
+  )
+
+target_link_libraries (hdfs-orc-contents
+  orc
+  ${PROTOBUF_LIBRARIES}
+  ${Libhdfs3_LIBRARY}
+  )
+
+add_executable (hdfs-orc-scan
+  HdfsFileScan.cc
+  )
+
+target_link_libraries (hdfs-orc-scan
+  orc
+  ${PROTOBUF_LIBRARIES}
+  )
+
 install(TARGETS
    orc-contents
    orc-metadata
    orc-statistics
+   hdfs-orc-contents
+   hdfs-orc-scan
    DESTINATION bin)
