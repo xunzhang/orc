@@ -34,7 +34,8 @@ before_script:
 
 script:
   - make package -j2
-  - env TZ=America/Los_Angeles make test-out
+  - export TZ=America/Los_Angeles
+  - make test-out
 
 branches:
   except:
