@@ -23,6 +23,8 @@ before_script:
 
 script:
   - make package -j2
+  - cd $TRAVIS_BUILD_DIR/java
+  - mvn package
   - make test-out
 
 branches:
