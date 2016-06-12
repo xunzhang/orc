@@ -8,9 +8,7 @@ compiler:
 
 before_install:
   - "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"
-  - brew install brew-cask
-  - brew upgrade brew-cask && brew cleanup && brew cask cleanup
-  
+  - brew install cask
 
 install:
 #- brew outdated maven || brew upgrade maven
