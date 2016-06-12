@@ -25,9 +25,10 @@ before_script:
   - cmake ..
 
 script:
-  - make package -j2
+  - make package
   - cd $TRAVIS_BUILD_DIR/java
   - mvn package
+  - cd $TRAVIS_BUILD_DIR/build
   - make test-out
 
 branches:
