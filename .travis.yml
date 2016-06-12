@@ -34,7 +34,7 @@ before_script:
 
 script:
   - make package -j2
-  - make test-out 2>&1 > /test-out.txt
+  - make test-out
 
 branches:
   except:
