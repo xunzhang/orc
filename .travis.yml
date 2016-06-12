@@ -1,0 +1,27 @@
+language: cpp
+
+os:
+  - osx
+
+compiler:
+  - clang
+
+before_install:
+  - "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"
+
+install:
+  - brew outdated maven || brew upgrade maven
+
+before_script:
+  - cd $TRAVIS_BUILD_DIR
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script:
+  - make package -j2
+  - make test-out
+
+branches:
+  except:
+    - legacy
