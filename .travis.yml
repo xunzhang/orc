@@ -8,13 +8,13 @@ compiler:
   - gcc
 
 before_install:
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"; fi
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew install cask; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cask; fi
 
 
 install:
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
   - cd $TRAVIS_BUILD_DIR/java
   - mvn package
 
