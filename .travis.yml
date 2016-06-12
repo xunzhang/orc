@@ -13,7 +13,7 @@ before_install:
 install:
 #- brew outdated maven || brew upgrade maven
   - brew cask install java
-  - brew install maven
+  - brew outdated maven || brew upgrade maven
 
 before_script:
   - cd $TRAVIS_BUILD_DIR
