@@ -14,7 +14,7 @@ before_install:
 
 install:
   - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
-#- if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew outdated maven || brew upgrade maven; fi
+  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
   - cd $TRAVIS_BUILD_DIR/java
   - mvn package
 
@@ -25,7 +25,6 @@ before_script:
   - cmake ..
 
 script:
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
   - make package -j2
   - make test-out 2>&1 > /tmp/test-out.txt
 
