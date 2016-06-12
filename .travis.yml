@@ -14,7 +14,7 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libprotobuf-dev; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install protobuf-compiler; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libsnappy-dev; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > brew-update.txt || (cat brew-update.txt && false)"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1"; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cask; fi
 
 
