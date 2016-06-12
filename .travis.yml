@@ -6,7 +6,6 @@ os:
 
 compiler:
   - gcc
-  - clang
 
 before_install:
   - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"; fi
@@ -14,9 +13,8 @@ before_install:
 
 
 install:
-#- brew outdated maven || brew upgrade maven
   - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
-  - if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew outdated maven || brew upgrade maven; fi
+#- if [[ "$TRIVIS_OS_NAME" == "osx" ]]; then brew outdated maven || brew upgrade maven; fi
 
 before_script:
   - cd $TRAVIS_BUILD_DIR
