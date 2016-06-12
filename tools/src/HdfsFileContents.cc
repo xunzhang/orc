@@ -18,8 +18,6 @@
 
 #include "orc/orc-config.hh"
 #include "orc/ColumnPrinter.hh"
-#include "hdfs/hdfs.h"
-#include "wrap/libhdfs3-wrapper.h"
 
 #include "Exceptions.hh"
 
