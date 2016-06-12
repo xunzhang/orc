@@ -1,28 +1,28 @@
 language: cpp
 
 os:
-  - linux
-#- osx
+#  - linux
+  - osx
 
 compiler:
   - gcc
 
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install g++-4.8; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libprotobuf-dev; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install protobuf-compiler; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libsnappy-dev; fi
-#  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > /brew-update.txt || (cat /brew-update.txt && false)"; fi
-#  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cask; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq update; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install g++-4.8; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libprotobuf-dev; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install protobuf-compiler; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get -qq install libsnappy-dev; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "brew update 2>&1 > /brew-update.txt || (cat /brew-update.txt && false)"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install cask; fi
 
 
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-4.8"; fi
-#  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CXX="clang++"; fi
-#  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
-#  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
+#  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export CXX="g++-4.8"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export CXX="clang++"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew cask install java; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export JAVA_HOME=/Library/Java/Home; fi
   - cd $TRAVIS_BUILD_DIR/java
   - mvn package
 
