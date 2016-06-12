@@ -6,11 +6,15 @@ os:
 compiler:
   - clang
 
-#before_install:
-#  - "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"
+before_install:
+  - brew install brew-cask
+  - "brew update 2>&1 > /tmp/brew-update.txt || (cat /tmp/brew-update.txt && false)"
+  - brew upgrade brew-cask && brew cleanup && brew cask cleanup
+  
 
 install:
 #- brew outdated maven || brew upgrade maven
+  - brew install java
   - brew install maven
 
 before_script:
