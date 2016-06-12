@@ -27,7 +27,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/java
   - mvn package
   - cd $TRAVIS_BUILD_DIR/build
-  - make test-out
+  - make test-out 2>&1 > /tmp/test-out.txt
 
 branches:
   except:
